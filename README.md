@@ -2,3 +2,5 @@
 
 #Nome: Guilherme Pereira da Silva
 #RA: 190570
+
+#Erro 1 - erro de inserção SQL
