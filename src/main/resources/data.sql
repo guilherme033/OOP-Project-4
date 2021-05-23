@@ -4,10 +4,10 @@ INSERT INTO TABLE_EVENTS (name, description, startDate, endDate, startTime, endT
 
                             -- Administrators --
 
-INSERT INTO TABLE_USERS (id, name, email) VALUES (1, 'Fiódor', 'Fiódor@gmail.com');
+INSERT INTO TABLE_USERS (id, name, email) VALUES (1, ' Fiódor ', 'Fiódor@gmail.com');
 INSERT INTO TABLE_ADMINS (user_id, phoneNumber) VALUES (1, '(033) 1515-1515');
 
-INSERT INTO TABLE_USERS (id, name, email) VALUES (2, 'Lev', 'Lev@outlook.com');
+INSERT INTO TABLE_USERS (id, name, email) VALUES (2, ' Lev t ', 'Lev@outlook.com');
 INSERT INTO TABLE_ADMINS (user_id, phoneNumber) VALUES (2, '(044) 1616-1616');
 
 INSERT INTO TABLE_USERS (id, name, email) VALUES (3, 'Anton', 'Anton@email.com');
