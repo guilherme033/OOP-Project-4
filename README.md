@@ -4,7 +4,9 @@
 #RA: 190570
 
 #Erro 1 - erro de inserção SQL - TABLE_EVENTS
-#Admin entity = adminRepository.getOne(id) - DEPRECATED
+#Erro 2 - Admin entity = adminRepository.getOne(id) - DEPRECATED
+#Erro 3 - Application error (HEROKU)
+
 
 #JSON:
 admin:
