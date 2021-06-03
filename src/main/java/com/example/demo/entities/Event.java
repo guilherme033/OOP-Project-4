@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
-
 import com.example.demo.dto.EventInsertDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,52 +26,50 @@ public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     private String name;
     private String description;
 
-    @Column(name = "Start Date")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name = "STARTDATE")
+    @JsonFormat(pattern ="yyyy-MM-dd")
     private LocalDate startDate;
 
-    @Column(name = "End Date")
+    @Column(name = "ENDDATE")
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate endDate;
 
-    @Column(name = "Start Time")
+    @Column(name = "STARTTIME")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime startTime;
 
-    @Column(name = "End Time")
+    @Column(name = "ENDTIME")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime endTime;
 
-    @Column(name = "Email Contact")
+    @Column(name = "EMAILCONTACT")
     private String emailContact;
 
-    @Column(name = "Amount Free Tickets")
+    @Column(name = "AMOUNTFREETICKETS")
     private Long amountFreeTickets;
 
-    @Column(name = "Amount Payed Tickets")
+    @Column(name = "AMOUNTPAYEDTICKETS")
     private Long amountPayedTickets;
 
-    @Column(name = "Ticket Price's")
+    @Column(name = "PRICETICKET")
     private Double priceTicket;
 
     @ManyToOne
     @JoinColumn(name = "ADMIN_USER_ID")
-    
     private Admin admin;
 
     @ManyToMany
     @JoinTable(
-        name                =   "TABLE_EVENTS_PLACES",
+        name                =   "TB_EVENTS_PLACES",
         joinColumns         =   @JoinColumn(name = "EVENT_ID"),
         inverseJoinColumns  =   @JoinColumn(name = "PLACE_ID")
     )
-
-    private List < Place > places = new ArrayList<>() ;
+    private List<Place> places = new ArrayList<>() ;
 
     public Event(){
     }

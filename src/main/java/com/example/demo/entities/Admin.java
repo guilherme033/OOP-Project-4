@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Admin extends BaseUSER{
 
     
-    @Column(name = "Phone Number")
+    @Column(name = "PHONENUMBER")
     private String phoneNumber;
 
     @JsonIgnore
@@ -50,5 +50,4 @@ public class Admin extends BaseUSER{
     public void addEvent(Event event) {
         this.events.add(event);
     }
-    
 }

@@ -20,7 +20,6 @@ public class Attend extends BaseUSER {
 
     @OneToMany
     @JoinColumn(name = "ATTEND_USER_ID")
-    
     private List<Ticket> tickets = new ArrayList<>();
 
     public Attend() {

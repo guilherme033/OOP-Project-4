@@ -1,19 +1,17 @@
 package com.example.demo.dto;
 
 import java.util.List;
-
 import com.example.demo.entities.Attend;
 import com.example.demo.entities.Ticket;
 
 public class AttendDTO {
-        private Long    id;
-        private String  name;
-        private String  email;
-        private Double  balance;
+        private Long            id;
+        private String          name;
+        private String          email;
+        private Double          balance;
+        private List<Ticket>    tickets;
     
-        List <Ticket> tickets;
-    
-        public AttendDTO(Long id, String name, String email, Double balance, List <Ticket> tickets) {
+        public AttendDTO(Long id, String name, String email, Double balance, List<Ticket> tickets) {
             this.id         =   id;
             this.name       =   name;
             this.email      =   email;
@@ -26,7 +24,7 @@ public class AttendDTO {
             this.name       =   atd.getName();
             this.email      =   atd.getEmail();
             this.balance    =   atd.getBalance();
-            this.tickets    =  atd.getTickets();
+            this.tickets    =   atd.getTickets();
         }
     
         public Long getId() {
@@ -59,6 +57,14 @@ public class AttendDTO {
     
         public void setBalance(Double balance) {
             this.balance = balance;
+        }
+
+        public List<Ticket> getTickets() {
+            return tickets;
+        }
+    
+        public void setTickets(List<Ticket> tickets) {
+            this.tickets = tickets;
         }
     
 }

@@ -16,7 +16,8 @@ public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long    id;
+    private Long id;
+    
     private Enum    type;
     private Instant date;
     private Double  price;
@@ -85,6 +86,6 @@ public class Ticket implements Serializable {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        return true;
+            return true;
     }
 }

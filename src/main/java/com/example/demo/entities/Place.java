@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import com.example.demo.dto.PlaceInsertDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,8 +21,8 @@ public class Place implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Long    id;
+
     private String  name;
     private String  address;
 

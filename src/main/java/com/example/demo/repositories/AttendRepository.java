@@ -9,11 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AttendRepository extends JpaRepository <Attend, Long> {
-
-    @Query("SELECT at FROM Attend at "  +    "WHERE"   +
-         "( LOWER(at.name)  LIKE    LOWER(CONCAT('%', :name,    '%')))"
-    )
-    public Page <Attend> find(Pageable pageRequest, String name);
+public interface AttendRepository extends JpaRepository <Attend,Long>{
     
+    @Query("SELECT at FROM Attend at " +
+           "WHERE " +
+           " ( LOWER(at.name)            LIKE   LOWER(CONCAT('%', :name,    '%'))) "
+    )
+
+    public Page <Attend> find(Pageable pageRequest, String name);
 }

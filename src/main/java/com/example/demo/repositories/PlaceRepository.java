@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PlaceRepository extends JpaRepository <Place, Long>{
+public interface PlaceRepository extends JpaRepository <Place,Long>{
+    
+    @Query("SELECT p FROM Place p " +
+           "WHERE " +
+           " ( LOWER(p.name)            LIKE   LOWER(CONCAT('%', :name,    '%'))) "
+    )
 
-    @Query("SELECT p FROM Place p " +   "WHERE" +
-    "(LOWER(p.name)    LIKE   LOWER(CONCAT('%', :name,    '%')))"
-)
-
-public Page <Place> find(Pageable pageRequest, String name); 
-
+    public Page <Place> find(Pageable pageRequest, String name);
 }

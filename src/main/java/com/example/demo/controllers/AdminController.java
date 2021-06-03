@@ -1,12 +1,10 @@
 package com.example.demo.controllers;
 
 import java.net.URI;
-
 import com.example.demo.dto.AdminDTO;
 import com.example.demo.dto.AdminInsertDTO;
 import com.example.demo.dto.AdminUpdateDTO;
 import com.example.demo.service.AdminService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +29,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping
-    public ResponseEntity < Page < AdminDTO >> getadmins (
+    public ResponseEntity<Page<AdminDTO>> getAd (
 
     @RequestParam(value = "page",         defaultValue = "0") Integer page,
     @RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,

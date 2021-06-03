@@ -62,7 +62,7 @@ public class AttendService {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fill in the items!");
             }
 
-            Attend entity = attendRepository.getOne(id);
+             Attend entity = attendRepository.getOne(id);
             
             if(entity.getBalance() < (dto.getBalance() * -1)){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The attendee has a" + entity.getBalance() + "balance!");

@@ -1,20 +1,18 @@
 package com.example.demo.dto;
 
 import java.util.List;
-
 import com.example.demo.entities.Admin;
 import com.example.demo.entities.Event;
 
 public class AdminDTO {
 
-    private Long    id;
-    private String  name;
-    private String  email;
-    private String  phoneNumber;
+    private Long        id;
+    private String      name;
+    private String      email;
+    private String      phoneNumber;
+    private List<Event> events;
 
-    List <Event> events;
-
-    public AdminDTO(Long id, String name, String email, String phoneNumber, List <Event> events){
+    public AdminDTO(Long id, String name, String email, String phoneNumber, List<Event> events){
         this.id          =  id;
         this.name        =  name;
         this.email       =  email;
@@ -53,6 +51,12 @@ public class AdminDTO {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+    public List<Event> getEvents() {
+        return events;
+    }
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
     
 }

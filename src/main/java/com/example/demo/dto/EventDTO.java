@@ -3,7 +3,6 @@ package com.example.demo.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
 import com.example.demo.entities.Admin;
 import com.example.demo.entities.Event;
 import com.example.demo.entities.Place;
@@ -22,9 +21,40 @@ public class EventDTO {
     private Long        amountPayedTickets;
     private Double      priceTicket;
     private Admin       admin;
-
-    List <Place> places;
-
+    private List<Place> places;
+ 
+    public EventDTO(Long id, String name, String description, LocalDate startDate, LocalDate endDate,
+            LocalTime startTime, LocalTime endTime, String emailContact, Long amountFreeTickets,
+            Long amountPayedTickets, Double priceTicket, Admin admin, List<Place> places) {
+        this.id                 =   id;
+        this.name               =   name;
+        this.description        =   description;
+        this.startDate          =   startDate;
+        this.endDate            =   endDate;
+        this.startTime          =   startTime;
+        this.endTime            =   endTime;
+        this.emailContact       =   emailContact;
+        this.amountFreeTickets  =   amountFreeTickets;
+        this.amountPayedTickets =   amountPayedTickets;
+        this.priceTicket        =   priceTicket;
+        this.admin              =   admin;
+        this.places             =   places;
+    }
+    public EventDTO(Event event){
+        this.id                 =    event.getId();
+        this.name               =    event.getName();
+        this.description        =    event.getDescription();
+        this.startDate          =    event.getStartDate();
+        this.endDate            =    event.getEndDate();
+        this.startTime          =    event.getStartTime();
+        this.endTime            =    event.getEndTime();
+        this.emailContact       =    event.getEmailContact();
+        this.amountFreeTickets  =    event.getAmountFreeTickets();
+        this.amountPayedTickets =    event.getAmountPayedTickets();
+        this.priceTicket        =    event.getPriceTicket();
+        this.admin              =    event.getAdmin();
+        this.places             =    event.getPlaces();
+    }
     public Long getId() {
         return id;
     }
@@ -127,39 +157,5 @@ public class EventDTO {
 
     public void setPlaces(List<Place> places) {
         this.places = places;
-    }
-
-    public EventDTO(Long id, String name, String description, LocalDate startDate, LocalDate endDate,
-            LocalTime startTime, LocalTime endTime, String emailContact, Long amountFreeTickets,
-            Long amountPayedTickets, Double priceTicket, Admin admin, List<Place> places) {
-        this.id                 =   id;
-        this.name               =   name;
-        this.description        =   description;
-        this.startDate          =   startDate;
-        this.endDate            =   endDate;
-        this.startTime          =   startTime;
-        this.endTime            =   endTime;
-        this.emailContact       =   emailContact;
-        this.amountFreeTickets  =   amountFreeTickets;
-        this.amountPayedTickets =   amountPayedTickets;
-        this.priceTicket        =   priceTicket;
-        this.admin              =   admin;
-        this.places             =   places;
-    }
-
-    public EventDTO(Event event){
-        this.id                 =    event.getId();
-        this.name               =    event.getName();
-        this.description        =    event.getDescription();
-        this.startDate          =    event.getStartDate();
-        this.endDate            =    event.getEndDate();
-        this.startTime          =    event.getStartTime();
-        this.endTime            =    event.getEndTime();
-        this.emailContact       =    event.getEmailContact();
-        this.amountFreeTickets  =    event.getAmountFreeTickets();
-        this.amountPayedTickets =    event.getAmountPayedTickets();
-        this.priceTicket        =    event.getPriceTicket();
-        this.admin              =    event.getAdmin();
-        this.places             =    event.getPlaces();
     }
 }
