@@ -29,7 +29,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping
-    public ResponseEntity<Page<AdminDTO>> getAd (
+    public ResponseEntity<Page<AdminDTO>> getAdmins (
 
     @RequestParam(value = "page",         defaultValue = "0") Integer page,
     @RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
