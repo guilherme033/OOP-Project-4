@@ -23,7 +23,7 @@ public class AdminService {
 
     public  Page<AdminDTO> getAdmins(PageRequest pageRequest, String name) {
             Page<Admin> list = adminRepository.find(pageRequest, name);
-            return list.map( a -> new AdminDTO(a) );
+            return list.map(a -> new AdminDTO(a));
     }
 
     public  AdminDTO getAdminById(Long id) {

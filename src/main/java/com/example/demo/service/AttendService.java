@@ -23,7 +23,7 @@ public class AttendService {
 
     public  Page<AttendDTO> getAttendees(PageRequest pageRequest, String name) {
             Page<Attend> list = attendRepository.find(pageRequest, name);
-            return list.map( at -> new AttendDTO(at) );
+            return list.map(at -> new AttendDTO(at));
     }
 
     public  AttendDTO getAttendById(Long id) {

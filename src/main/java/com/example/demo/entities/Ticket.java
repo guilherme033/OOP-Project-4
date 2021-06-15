@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TABLE_TICKETS")
@@ -18,14 +22,24 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Enum    type;
+    private String  type;
     private Instant date;
     private Double  price;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "ATTEND_USER_ID")
+    private Attend attend;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "EVENT_ID")
+    private Event event;
     
     public Ticket() {
     }
 
-    public Ticket(Long id, Enum type, Instant date, Double price) {
+    public Ticket(Long id, String type, Instant date, Double price) {
         this.id    = id;
         this.type  = type;
         this.date  = date;
@@ -40,11 +54,11 @@ public class Ticket implements Serializable {
         this.id = id;
     }
 
-    public Enum getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Enum type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -62,6 +76,22 @@ public class Ticket implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Attend getAttend() {
+        return attend;
+    }
+
+    public void setAttend(Attend attend) {
+        this.attend = attend;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Override

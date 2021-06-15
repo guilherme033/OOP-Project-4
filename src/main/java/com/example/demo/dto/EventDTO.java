@@ -3,7 +3,6 @@ package com.example.demo.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import com.example.demo.entities.Admin;
 import com.example.demo.entities.Event;
 import com.example.demo.entities.Place;
 
@@ -20,12 +19,12 @@ public class EventDTO {
     private Long        amountFreeTickets;
     private Long        amountPayedTickets;
     private Double      priceTicket;
-    private Admin       admin;
+    private Long        admin;
     private List<Place> places;
  
     public EventDTO(Long id, String name, String description, LocalDate startDate, LocalDate endDate,
             LocalTime startTime, LocalTime endTime, String emailContact, Long amountFreeTickets,
-            Long amountPayedTickets, Double priceTicket, Admin admin, List<Place> places) {
+            Long amountPayedTickets, Double priceTicket, Long admin, List<Place> places) {
         this.id                 =   id;
         this.name               =   name;
         this.description        =   description;
@@ -143,11 +142,11 @@ public class EventDTO {
         this.priceTicket = priceTicket;
     }
 
-    public Admin getAdmin() {
+    public Long getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Admin admin) {
+    public void setAdmin(Long admin) {
         this.admin = admin;
     }
 

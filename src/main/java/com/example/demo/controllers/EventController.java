@@ -2,9 +2,12 @@ package com.example.demo.controllers;
 
 import java.net.URI;
 
+import com.example.demo.dto.AttendticketDTO;
 import com.example.demo.dto.EventDTO;
 import com.example.demo.dto.EventInsertDTO;
 import com.example.demo.dto.EventUpdateDTO;
+import com.example.demo.entities.Attend;
+import com.example.demo.entities.Visualization;
 import com.example.demo.service.EventService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping
-    public ResponseEntity < Page < EventDTO >> getEvents(
+    public ResponseEntity <Page<EventDTO>> getEvents(
 
         @RequestParam(value = "page",         defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
@@ -70,6 +73,36 @@ public class EventController {
 	public ResponseEntity<EventDTO> update(@PathVariable Long id, @RequestBody EventUpdateDTO updateDTO){
 		EventDTO dto = eventService.update(id, updateDTO); 
 		return ResponseEntity.ok().body(dto);
+	}
+
+    @PostMapping("{id}/places/{place}")
+    public ResponseEntity<EventDTO> addPlace(@PathVariable Long id, @PathVariable Long place) {
+        EventDTO dto = eventService.addPlace(id, place);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("{id}/places/{place}")
+	public ResponseEntity<Void> deletePlace(@PathVariable Long id, @PathVariable Long place){
+		eventService.removePlace(id, place); 
+		return ResponseEntity.noContent().build();
+	}
+
+    @GetMapping("{id}/tickets")
+    public ResponseEntity<Visualization> getTickets(@PathVariable Long id) {
+        Visualization view = eventService.getTickets(id);
+        return ResponseEntity.ok(view);
+    }
+
+    @PostMapping("{id}/tickets")
+    public ResponseEntity<Attend> insertTicket(@RequestBody AttendticketDTO ticketDTO, @PathVariable Long id) {
+        Attend atd = eventService.insertTicket(ticketDTO, id);
+        return ResponseEntity.ok(atd);
+    }
+
+    @DeleteMapping("{id}/tickets")
+	public ResponseEntity<Void> deleteTickets(@PathVariable Long id){
+		eventService.deleteTickets(id); 
+		return ResponseEntity.noContent().build();
 	}
     
 }

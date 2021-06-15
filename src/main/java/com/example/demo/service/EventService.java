@@ -1,12 +1,24 @@
 package com.example.demo.service;
 
+import java.time.Instant;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+
+import com.example.demo.dto.AttendticketDTO;
 import com.example.demo.dto.EventDTO;
 import com.example.demo.dto.EventInsertDTO;
 import com.example.demo.dto.EventUpdateDTO;
+import com.example.demo.entities.Attend;
 import com.example.demo.entities.Event;
+import com.example.demo.entities.Place;
+import com.example.demo.entities.Ticket;
+import com.example.demo.entities.Visualization;
+import com.example.demo.repositories.AdminRepository;
+import com.example.demo.repositories.AttendRepository;
 import com.example.demo.repositories.EventRepository;
+import com.example.demo.repositories.PlaceRepository;
+import com.example.demo.repositories.TicketRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -21,6 +33,20 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+    
+    @Autowired
+    private AdminRepository adminRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
+    @Autowired
+    private AttendRepository attendRepository;
+
+    @Autowired
+    private TicketRepository ticketRepository;
+
+
 
     public  Page<EventDTO> getEvents(PageRequest pageRequest, String name, String description) {
             Page<Event> list = eventRepository.find(pageRequest, name, description);
@@ -65,7 +91,7 @@ public class EventService {
             eventRepository.deleteById(id);
         }
         catch(EmptyResultDataAccessException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!");
         }
     }
 
@@ -105,8 +131,100 @@ public class EventService {
             return new EventDTO(entity);
         }
         catch(EntityNotFoundException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!");
         }  
     }
-    
+
+    public EventDTO addPlace(Long id, Long place) {
+        Optional<Event> op = eventRepository.findById(id);
+        Event eve = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+        Optional<Place> op2 = placeRepository.findById(place);
+        Place plc = op2.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Place not found!"));
+
+        eve.addPlace(plc);
+        eve = eventRepository.save(eve);
+        return new EventDTO(eve);
+    }
+
+    public void removePlace(Long id, Long place){
+        try{
+            Optional<Event> op = eventRepository.findById(id);
+            Event eve = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+            Optional<Place> op2 = placeRepository.findById(place);
+            Place plc = op2.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Place not found!"));
+
+            for(Place event_place : eve.getPlaces()){
+                if(event_place.getId() == plc.getId()){
+                    eve.removePlace(plc);
+                    eve = eventRepository.save(eve);
+                    return;
+                }
+            }
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "- Event not associated with this place! -");      
+        }
+        catch(EmptyResultDataAccessException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "- 404! -");
+        }
+    }
+
+    public Visualization getTickets(Long id){
+        Optional<Event> op = eventRepository.findById(id);
+        Event eve = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+        Visualization view = new Visualization();
+
+        view.setTotalfreetickets(eve.getAmountFreeTickets());
+        view.setTotalpaidtickets(eve.getAmountPayedTickets());
+
+        for(Ticket tickets : eve.getTickets()){        
+            if( tickets.getType().equals("FREE_TICKET!")){
+                view.setFreeticketoutput(view.getFreeticketoutput() + 1);
+                view.addFreeticketlisting(tickets.getAttend().getName());
+            }
+            else{
+                view.setPaidticketsoutput(view.getPaidticketsoutput() + 1);
+                view.addPaidticketlisting(tickets.getAttend().getName());
+            }
+        }
+
+        return view;
+    }
+
+    public Attend insertTicket(AttendticketDTO dto, Long id){
+        Optional<Event> op = eventRepository.findById(id);
+        Event eve = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+        Optional<Attend> op2 = attendRepository.findById(dto.getId());
+        Attend atd = op2.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attend not found!"));
+
+        if(!dto.getType().equals("FREE_TICKET!") && !dto.getType().equals("PAYED_TICKET!")){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "- Free or Payed! -");
+        }
+
+        if(eve.hasTicket(dto.getType()) != true){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, " - Event with insufficient ticket! -" + dto.getType());
+        }
+
+        Ticket  ticket = new Ticket();
+                ticket.setType(dto.getType());
+                ticket.setAttend(atd);
+                ticket.setEvent(eve);
+                ticket.setPrice(eve.getPriceTicket());
+                ticket.setDate(Instant.now());
+                ticket = ticketRepository.save(ticket);
+
+        return atd;
+    }
+
+    public void deleteTickets(Long id){
+        Optional<Event> op = eventRepository.findById(id);
+        Event eve = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+        for(Ticket ticket : eve.getTickets()){
+            eve.removeTicket(ticket);
+            eve = eventRepository.save(eve);
+        }
+    }
 }

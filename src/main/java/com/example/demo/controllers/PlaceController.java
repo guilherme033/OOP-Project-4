@@ -31,7 +31,7 @@ public class PlaceController {
     private PlaceService placeService;
 
     @GetMapping
-    public ResponseEntity <Page < PlaceDTO >> getPlaces(
+    public ResponseEntity <Page<PlaceDTO>> getPlaces(
 
         @RequestParam(value = "page",         defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,

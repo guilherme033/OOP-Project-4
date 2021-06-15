@@ -31,7 +31,7 @@ public class AttendController {
     private AttendService attendService;
 
     @GetMapping
-    public ResponseEntity < Page < AttendDTO >> getAttendees(
+    public ResponseEntity <Page<AttendDTO>> getAttendees(
 
         @RequestParam(value = "page",         defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,

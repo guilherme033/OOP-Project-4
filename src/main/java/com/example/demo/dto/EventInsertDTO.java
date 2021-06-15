@@ -15,8 +15,15 @@ public class EventInsertDTO {
     private Long        amountFreeTickets;
     private Long        amountPayedTickets;
     private Double      priceTicket;
+    private Long        admin;
 
     
+    public Long getAdmin() {
+        return admin;
+    }
+    public void setAdmin(Long admin) {
+        this.admin = admin;
+    }
     public String getName() {
         return name;
     }
